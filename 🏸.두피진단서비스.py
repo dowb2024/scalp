@@ -956,25 +956,22 @@ elif st.session_state.page == 1:
         type = st.multiselect(
             label="◾ 질문 1. 당신의 두피 타입을 선택하세요",
             options=list(type_emoji_dict.keys()),
-            max_selections=1,
+            max_selections=1
             # default=scalp_example["type"] if auto_complete else []
-            default=""
         )
 
         symptom = st.multiselect(
             label="◾ 질문 2. 당신의 두피 고민/질환 증상이 무엇인가요?",
             options=list(symptom_emoji_dict.keys()),
-            max_selections=6,
+            max_selections=6
             # default=scalp_example["symptom"] if auto_complete else []
-            default=""
         )
 
         variety = st.multiselect(
             label="◾ 질문 3. 추천 받기 원하는 제품은 무엇인가요?",
             options=list(variety_emoji_dict.keys()),
-            max_selections=7,
+            max_selections=7
             # default=scalp_example["variety"] if auto_complete else []
-            default=""
         )
 
         submit = st.form_submit_button(label="Submit")
