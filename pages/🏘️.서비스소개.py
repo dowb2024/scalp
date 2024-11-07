@@ -22,10 +22,10 @@ st.markdown(
     }
 
     .highlight-box {
-        background-color: #d2b48c; /* 노란색 박스 */
+        background-color: #D1B7A8; /* 노란색 박스 */
         padding: 15px;
         border-radius: 10px;
-        border: 2px solid #d2b48c;
+        border: 2px solid #D1B7A8;
         font-weight: bold;
         text-align: center;
         color: #333;
