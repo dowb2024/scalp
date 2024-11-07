@@ -950,28 +950,31 @@ elif st.session_state.page == 1:
     st.markdown("**🔥 설문조사**")
     st.text("* 당신의 두피에 대해 알려주세요. 더 정확한 분석에 도움이 됩니다.")
     st.text("* 질문 선택 후 Submit 버튼을 반드시 눌러주세요.")
-    auto_complete = st.toggle("예시 데이터로 채우기")
+    # auto_complete = st.toggle("예시 데이터로 채우기")
     with (st.form(key="form")):
 
         type = st.multiselect(
             label="◾ 질문 1. 당신의 두피 타입을 선택하세요",
             options=list(type_emoji_dict.keys()),
             max_selections=1,
-            default=scalp_example["type"] if auto_complete else []            
+            # default=scalp_example["type"] if auto_complete else []
+            default=""
         )
 
         symptom = st.multiselect(
             label="◾ 질문 2. 당신의 두피 고민/질환 증상이 무엇인가요?",
             options=list(symptom_emoji_dict.keys()),
             max_selections=6,
-            default=scalp_example["symptom"] if auto_complete else []
+            # default=scalp_example["symptom"] if auto_complete else []
+            default=""
         )
 
         variety = st.multiselect(
             label="◾ 질문 3. 추천 받기 원하는 제품은 무엇인가요?",
             options=list(variety_emoji_dict.keys()),
             max_selections=7,
-            default=scalp_example["variety"] if auto_complete else []
+            # default=scalp_example["variety"] if auto_complete else []
+            default=""
         )
 
         submit = st.form_submit_button(label="Submit")
