@@ -1015,7 +1015,7 @@ elif st.session_state.page == 1:
     with col16:
         st.button("Prev", on_click=prev_main_page)
     with col17:
-        if st.session_state.survey == 1:
+        if len(type) != 0 and len(symptom) != 0 and len(variety) != 0:
             st.button("Next", on_click=next_page)
         else:
             st.write("")
