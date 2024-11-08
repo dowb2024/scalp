@@ -6,3 +6,4 @@ matplotlib
 datetime
 httpagentparser
 streamlit-javascript
+streamlit.components.v1
