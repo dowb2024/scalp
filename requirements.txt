@@ -5,3 +5,4 @@ openai
 matplotlib
 datetime
 httpagentparser
+streamlit-javascript
