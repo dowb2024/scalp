@@ -1016,7 +1016,62 @@ if st.session_state.page == 0:
                     st.write("1page")
 
             else:
-                st.write("기기 정보를 확인할 수 없습니다.")
+                uploaded_file = st.file_uploader("[Browse files] 버튼을 클릭 해주세요!", type=["jpg", "png", "jpeg"])
+
+                st.write("")
+                st.write("")
+                st.write("")
+                st.write("")
+                st.write("")
+
+                # 저장할 경로 설정
+                SAVE_FOLDER = './data/uploaded_images/'
+
+                # 폴더가 존재하지 않으면 생성
+                if not os.path.exists(SAVE_FOLDER):
+                    os.makedirs(SAVE_FOLDER)
+
+                # 파일이 업로드된 경우 처리
+                if uploaded_file is not None:
+                    # 업로드된 파일을 PIL 이미지로 열기
+                    image = Image.open(uploaded_file)
+
+                    # 파일 이름을 가져옴
+                    file_name = uploaded_file.name
+
+                    # 저장할 경로 생성
+                    file_path = os.path.join(SAVE_FOLDER, file_name)
+
+                    # 이미지 파일을 지정한 경로에 저장
+                    image.save(file_path)
+                    st.session_state.upload["session"] = 1
+                    st.session_state.upload["filepath"] = file_path
+                    st.session_state.upload["filename"] = file_name
+                    st.text("이미지가 성공적으로 업로드되었습니다.😍")
+                    st.write("")
+
+                ############################ 2. 사용자 두피 이미지 결과  ############################
+                # if uploaded_file is not None and st.session_state.upload["session"] == 1:
+                #     st.markdown("**🔥 사용자 두피 이미지 보기**")
+                #     with st.expander(label="※ 사용자 두피 이미지", expanded=True):
+                #         st.image(image, caption='Uploaded Image.', use_column_width=True)
+                #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
+
+                # st.button("Home", on_click=home_page, key="button1")
+                col3, col4, col5, col6, col7, col8 = st.columns(6)
+                with col3:
+                    st.write("")
+                with col4:
+                    st.write("")
+                with col5:
+                    st.write("")
+                with col6:
+                    if uploaded_file is not None and st.session_state.upload["session"] == 1:
+                        st.button("Next", on_click=next_page)
+                with col7:
+                    st.write("")
+                with col8:
+                    st.write("1page")
 
 
 
