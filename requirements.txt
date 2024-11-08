@@ -4,3 +4,4 @@ torchvision
 openai
 matplotlib
 datetime
+httpagentparser
