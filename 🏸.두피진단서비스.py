@@ -11,6 +11,7 @@ from matplotlib import pyplot as plt
 import shutil
 import json
 from datetime import date
+import httpagentparser
 
 st.set_page_config(
     # layout="wide",
@@ -844,6 +845,17 @@ def product_view(result):
         with cols[2]:
             st.write("")
 
+# User-Agent 정보를 가져와서 세션에 저장하는 함수
+def detect_device():
+    if "device_type" not in st.session_state:
+        user_agent = st.request.headers["User-Agent"]
+        device_info = httpagentparser.detect(user_agent)
+        # 모바일 장치인지 여부 확인
+        if "platform" in device_info and device_info["platform"]["name"] in ["Android", "iPhone", "iPad"]:
+            st.session_state.device_type = "모바일"
+        else:
+            st.session_state.device_type = "PC"
+
 if "scalp" not in st.session_state:
     st.session_state.scalp = initial_scalp
 
@@ -885,48 +897,95 @@ if st.session_state.page == 0:
     with col2:
         st.markdown("**🔥 사용자 두피 이미지 업로드**")
         with st.expander(label="※ 클릭시 이미지 확장/삭제", expanded=True):
-            uploaded_file = st.file_uploader("[Browse files] 버튼을 클릭 해주세요!", type=["jpg", "png", "jpeg"])
+            if "device_type" in st.session_state and st.session_state.device_type == "모바일":
+                uploaded_file = st.camera_input("사진을 찍어 주세요!")
 
-            st.write("")
-            st.write("")
-            st.write("")
-            st.write("")
-            st.write("")
-
-            # 저장할 경로 설정
-            SAVE_FOLDER = './data/uploaded_images/'
-
-            # 폴더가 존재하지 않으면 생성
-            if not os.path.exists(SAVE_FOLDER):
-                os.makedirs(SAVE_FOLDER)
-
-            # 파일이 업로드된 경우 처리
-            if uploaded_file is not None:
-
-                # 업로드된 파일을 PIL 이미지로 열기
-                image = Image.open(uploaded_file)
-
-                # 파일 이름을 가져옴
-                file_name = uploaded_file.name
-
-                # 저장할 경로 생성
-                file_path = os.path.join(SAVE_FOLDER, file_name)
-
-                # 이미지 파일을 지정한 경로에 저장
-                image.save(file_path)
-                st.session_state.upload["session"] = 1
-                st.session_state.upload["filepath"] = file_path
-                st.session_state.upload["filename"] = file_name
-                st.text("이미지가 성공적으로 업로드되었습니다.😍")
+                st.write("")
+                st.write("")
+                st.write("")
+                st.write("")
                 st.write("")
 
+                # 저장할 경로 설정
+                SAVE_FOLDER = './data/uploaded_images/'
 
-    ############################ 2. 사용자 두피 이미지 결과  ############################
-    # if uploaded_file is not None and st.session_state.upload["session"] == 1:
-    #     st.markdown("**🔥 사용자 두피 이미지 보기**")
-    #     with st.expander(label="※ 사용자 두피 이미지", expanded=True):
-    #         st.image(image, caption='Uploaded Image.', use_column_width=True)
-    #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
+                # 폴더가 존재하지 않으면 생성
+                if not os.path.exists(SAVE_FOLDER):
+                    os.makedirs(SAVE_FOLDER)
+
+                # 파일이 업로드된 경우 처리
+                if uploaded_file is not None:
+                    # 업로드된 파일을 PIL 이미지로 열기
+                    image = Image.open(uploaded_file)
+
+                    # 파일 이름을 가져옴
+                    file_name = uploaded_file.name
+
+                    # 저장할 경로 생성
+                    file_path = os.path.join(SAVE_FOLDER, file_name)
+
+                    # 이미지 파일을 지정한 경로에 저장
+                    image.save(file_path)
+                    st.session_state.upload["session"] = 1
+                    st.session_state.upload["filepath"] = file_path
+                    st.session_state.upload["filename"] = file_name
+                    st.text("이미지가 성공적으로 업로드되었습니다.😍")
+                    st.write("")
+
+
+            ############################ 2. 사용자 두피 이미지 결과  ############################
+            # if uploaded_file is not None and st.session_state.upload["session"] == 1:
+            #     st.markdown("**🔥 사용자 두피 이미지 보기**")
+            #     with st.expander(label="※ 사용자 두피 이미지", expanded=True):
+            #         st.image(image, caption='Uploaded Image.', use_column_width=True)
+            #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
+
+            elif "device_type" in st.session_state and st.session_state.device_type == "PC":
+                uploaded_file = st.file_uploader("[Browse files] 버튼을 클릭 해주세요!", type=["jpg", "png", "jpeg"])
+
+                st.write("")
+                st.write("")
+                st.write("")
+                st.write("")
+                st.write("")
+
+                # 저장할 경로 설정
+                SAVE_FOLDER = './data/uploaded_images/'
+
+                # 폴더가 존재하지 않으면 생성
+                if not os.path.exists(SAVE_FOLDER):
+                    os.makedirs(SAVE_FOLDER)
+
+                # 파일이 업로드된 경우 처리
+                if uploaded_file is not None:
+                    # 업로드된 파일을 PIL 이미지로 열기
+                    image = Image.open(uploaded_file)
+
+                    # 파일 이름을 가져옴
+                    file_name = uploaded_file.name
+
+                    # 저장할 경로 생성
+                    file_path = os.path.join(SAVE_FOLDER, file_name)
+
+                    # 이미지 파일을 지정한 경로에 저장
+                    image.save(file_path)
+                    st.session_state.upload["session"] = 1
+                    st.session_state.upload["filepath"] = file_path
+                    st.session_state.upload["filename"] = file_name
+                    st.text("이미지가 성공적으로 업로드되었습니다.😍")
+                    st.write("")
+
+
+            ############################ 2. 사용자 두피 이미지 결과  ############################
+            # if uploaded_file is not None and st.session_state.upload["session"] == 1:
+            #     st.markdown("**🔥 사용자 두피 이미지 보기**")
+            #     with st.expander(label="※ 사용자 두피 이미지", expanded=True):
+            #         st.image(image, caption='Uploaded Image.', use_column_width=True)
+            #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
+            else:
+                st.write("기기 정보를 확인할 수 없습니다.")
+
+
 
 
     # st.button("Home", on_click=home_page, key="button1")
