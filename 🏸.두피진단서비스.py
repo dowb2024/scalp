@@ -13,6 +13,7 @@ import json
 from datetime import date
 import httpagentparser
 from streamlit_javascript import st_javascript
+import streamlit.components.v1 as components
 
 st.set_page_config(
     # layout="wide",
@@ -847,15 +848,17 @@ def product_view(result):
             st.write("")
 
 # User-Agent 정보를 가져와서 세션에 저장하는 함수
-def detect_device():
-    if "device_type" not in st.session_state:
-        user_agent = st.request.headers["User-Agent"]
-        device_info = httpagentparser.detect(user_agent)
-        # 모바일 장치인지 여부 확인
-        if "platform" in device_info and device_info["platform"]["name"] in ["Android", "iPhone", "iPad"]:
-            st.session_state.device_type = "모바일"
-        else:
-            st.session_state.device_type = "PC"
+# JavaScript에서 받은 User-Agent 처리
+def handle_user_agent(data):
+    if "user_agent" in data:
+        st.session_state._user_agent = data["user_agent"]
+
+# 기기 판별 함수
+def detect_device(user_agent):
+    if any(mobile in user_agent.lower() for mobile in ["iphone", "android", "ipad", "mobile"]):
+        return "모바일"
+    return "PC"
+
 
 if "scalp" not in st.session_state:
     st.session_state.scalp = initial_scalp
@@ -898,11 +901,29 @@ if st.session_state.page == 0:
     with col2:
         st.markdown("**🔥 사용자 두피 이미지 업로드**")
         with st.expander(label="※ 클릭시 이미지 확장/삭제", expanded=True):
-            user_agent = st_javascript("return navigator.userAgent;")
+            # JavaScript와 HTML을 통해 User-Agent를 가져오는 코드
+            user_agent = components.html(
+                """
+                <script>
+                    // User-Agent를 가져와 Streamlit의 iframe에 전달
+                    const userAgent = navigator.userAgent;
+                    const message = {user_agent: userAgent};
+                    window.parent.postMessage(message, "*");
+                </script>
+                """,
+                height=0,
+            )
+
+            # Streamlit에서 postMessage 이벤트 처리
+            if "_user_agent" not in st.session_state:
+                st.session_state._user_agent = ""
+
+            # User-Agent를 통해 기기 판별
+            device_type = detect_device(st.session_state._user_agent)            
 
             if user_agent:
                 # 모바일 기기 여부를 확인하는 단어들이 User-Agent에 포함되었는지 확인
-                if any(mobile in user_agent.lower() for mobile in ["iphone", "android", "ipad", "mobile"]):
+                if device_type == "모바일":
 
                     uploaded_file = st.camera_input("사진을 찍어 주세요!")
 
@@ -1037,11 +1058,6 @@ if st.session_state.page == 0:
         st.write("")
     with col8:
         st.write("1page")
-
-
-
-
-
 
 elif st.session_state.page == 1:
     ############################ 3. 사용자 정보 입력하기 ############################
