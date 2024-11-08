@@ -940,6 +940,22 @@ if st.session_state.page == 0:
             #         st.image(image, caption='Uploaded Image.', use_column_width=True)
             #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
 
+            # st.button("Home", on_click=home_page, key="button1")
+            col3, col4, col5, col6, col7, col8 = st.columns(6)
+            with col3:
+                st.write("")
+            with col4:
+                st.write("")
+            with col5:
+                st.write("")
+            with col6:
+                if uploaded_file is not None and st.session_state.upload["session"] == 1:
+                    st.button("Next", on_click=next_page)
+            with col7:
+                st.write("")
+            with col8:
+                st.write("1page")
+
             elif "device_type" in st.session_state and st.session_state.device_type == "PC":
                 uploaded_file = st.file_uploader("[Browse files] 버튼을 클릭 해주세요!", type=["jpg", "png", "jpeg"])
 
@@ -982,27 +998,30 @@ if st.session_state.page == 0:
             #     with st.expander(label="※ 사용자 두피 이미지", expanded=True):
             #         st.image(image, caption='Uploaded Image.', use_column_width=True)
             #         # st.write("이미지가 성공적으로 업로드 되었습니다. 😍")
+
+            # st.button("Home", on_click=home_page, key="button1")
+            col3, col4, col5, col6, col7, col8 = st.columns(6)
+            with col3:
+                st.write("")
+            with col4:
+                st.write("")
+            with col5:
+                st.write("")
+            with col6:
+                if uploaded_file is not None and st.session_state.upload["session"] == 1:
+                    st.button("Next", on_click=next_page)
+            with col7:
+                st.write("")
+            with col8:
+                st.write("1page")
+
             else:
                 st.write("기기 정보를 확인할 수 없습니다.")
 
 
 
 
-    # st.button("Home", on_click=home_page, key="button1")
-    col3, col4, col5, col6, col7, col8 = st.columns(6)
-    with col3:
-        st.write("")
-    with col4:
-        st.write("")
-    with col5:
-        st.write("")
-    with col6:
-        if uploaded_file is not None and st.session_state.upload["session"] == 1:
-            st.button("Next", on_click=next_page)
-    with col7:
-        st.write("")
-    with col8:
-        st.write("1page")
+
 
 elif st.session_state.page == 1:
     ############################ 3. 사용자 정보 입력하기 ############################
