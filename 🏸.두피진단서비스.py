@@ -1222,7 +1222,7 @@ elif st.session_state.page == 2:
                 st.write("")
                 st.write("")
                 st.write("")
-                st.write(f"* 이미지 파일명 : {st.session_state.upload["filename"]}")
+                st.markdown(f"* 이미지 파일명 : {st.session_state.upload["filename"]}")
                 st.write("")
                 st.write("")
 
