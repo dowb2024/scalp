@@ -401,7 +401,7 @@ def product_recommend(df):
         "탈모성" : []
     }
 
-    st.session_state.scalp[0]["result_type"] = []
+    result_type = []
 
     # 6개 증상이 모두 경증일 때 - > 지성, 건성 중에 하나로 가자
     if bidum_state == class_names[1] and gakzil_state == class_names[1] and hongban_state == class_names[1] and nongpo_state == class_names[1] and pizy_state == class_names[1] and talmo_state == class_names[1]:
@@ -418,7 +418,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                             break
             recommend_type_product["건성"] = data
-            st.session_state.scalp[0]["result_type"].append("건성")
+            result_type.append("건성")
             print("6개 증상이 모두 경증일 때 - > 건성")
         elif "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
             data = []
@@ -433,7 +433,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                             break
             recommend_type_product["지성"] = data
-            st.session_state.scalp[0]["result_type"].append("지성")
+            result_type.append("지성")
             print("6개 증상이 모두 경증일 때 - > 지성")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 각질 : 건성
@@ -450,7 +450,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                         break
         recommend_type_product["건성"] = data
-        st.session_state.scalp[0]["result_type"].append("건성")
+        result_type.append("건성")
         print("6개의 증상 중에 하나만 중증 일때 -> 각질 : 건성")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 피지 : 지성
@@ -467,7 +467,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                         break
         recommend_type_product["지성"] = data
-        st.session_state.scalp[0]["result_type"].append("지성")
+        result_type.append("지성")
         print("6개의 증상 중에 하나만 중증 일때 -> 피지 : 지성")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 모낭사이홍반 : 설문(지성, 건성),  상반될 시 모델링
@@ -487,7 +487,7 @@ def product_recommend(df):
                                  df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                             break
             recommend_type_product["건성"] = data
-            st.session_state.scalp[0]["result_type"].append("건성")
+            result_type.append("건성")
             print("6개의 증상 중에 하나만 중증 일때 -> 모낭사이홍반 : 설문(건성)")
 
         elif "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
@@ -504,7 +504,7 @@ def product_recommend(df):
                                  df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                             break
             recommend_type_product["지성"] = data
-            st.session_state.scalp[0]["result_type"].append("지성")
+            result_type.append("지성")
             print("6개의 증상 중에 하나만 중증 일때 -> 모낭사이홍반 : 설문(지성)")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 모낭홍반농포 : 지루성
@@ -522,7 +522,7 @@ def product_recommend(df):
                         break
 
         recommend_type_product["지루성"] = data
-        st.session_state.scalp[0]["result_type"].append("지루성")
+        result_type.append("지루성")
         print("6개의 증상 중에 하나만 중증 일때 -> 모낭홍반농포 : 지루성")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 비듬 : 비듬성
@@ -539,7 +539,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                         break
         recommend_type_product["비듬성"] = data
-        st.session_state.scalp[0]["result_type"].append("비듬성")
+        result_type.append("비듬성")
         print("6개의 증상 중에 하나만 중증 일때 -> 비듬 : 비듬성")
 
     # 6개의 증상 중에 하나만 중증 일때 -> 탈모 : 탈모성
@@ -556,7 +556,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                         break
         recommend_type_product["탈모성"] = data
-        st.session_state.scalp[0]["result_type"].append("탈모성")
+        result_type.append("탈모성")
         print("6개의 증상 중에 하나만 중증 일때 -> 탈모 : 탈모성")
 
     # 각질 : 중증, 피지 : 중증, 홍반 : 중증, 농포 : 중증, 비듬 : 중증, 탈모 : 중증 (가능성이 없음)
@@ -590,7 +590,7 @@ def product_recommend(df):
                                              df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["건성"] = data
-                st.session_state.scalp[0]["result_type"].append("건성")
+                result_type.append("건성")
                 print("각질과 홍반이 중증이어서 건성으로 판단 한 경우")
 
             elif pizy_state == class_names[2] and (hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다."):
@@ -606,7 +606,7 @@ def product_recommend(df):
                                              df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["지성"] = data
-                st.session_state.scalp[0]["result_type"].append("지성")
+                result_type.append("지성")
                 print("피지와 홍반이 중증이어서 지성으로 판단한 경우")
             else:
                 if gakzil_state == class_names[2]:
@@ -623,7 +623,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["건성"] = data
-                    st.session_state.scalp[0]["result_type"].append("건성")
+                    result_type.append("건성")
                     print("각질이 중증이어서 건성으로 판단 한 경우")
 
                 elif pizy_state == class_names[2]:
@@ -640,7 +640,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["지성"] = data
-                    st.session_state.scalp[0]["result_type"].append("지성")
+                    result_type.append("지성")
                     print("피지가 중증이어서 지성으로 판단한 경우")
                     
                 elif hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
@@ -657,7 +657,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["건성"] = data
-                    st.session_state.scalp[0]["result_type"].append("건성")
+                    result_type.append("건성")
                     print("홍반이 중증이고 두피타입이 건성이어서 건성으로 판단 한 경우")
 
                 elif hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
@@ -674,7 +674,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["지성"] = data
-                    st.session_state.scalp[0]["result_type"].append("지성")
+                    result_type.append("지성")
                     print("홍반이 중증이고 두피타입이 지성이어서 지성으로 판단한 경우")
 
 
@@ -691,7 +691,7 @@ def product_recommend(df):
                                              df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["지루성"] = data
-                st.session_state.scalp[0]["result_type"].append("지루성")
+                result_type.append("지루성")
                 print("농포가 중증이어서 지루성으로 판단한 경우")
 
             if bidum_state == class_names[2]:
@@ -707,7 +707,7 @@ def product_recommend(df):
                                              df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["비듬성"] = data
-                st.session_state.scalp[0]["result_type"].append("비듬성")
+                result_type.append("비듬성")
                 print("비듬이 중증이어서 비듬성으로 판단한 경우 ")
 
             if talmo_state == class_names[2]:
@@ -723,7 +723,7 @@ def product_recommend(df):
                                              df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["탈모성"] = data
-                st.session_state.scalp[0]["result_type"].append("탈모성")
+                result_type.append("탈모성")
                 print("탈모가 중증이어서 탈모성으로 판단한 경우")
 
         elif talmo_state == class_names[1] or nongpo_state == class_names[1] or hongban_state == class_names[1] or pizy_state == class_names[1] or gakzil_state == class_names[1] or bidum_state == class_names[1]:
@@ -741,7 +741,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["건성"] = data
-                st.session_state.scalp[0]["result_type"].append("건성")
+                result_type.append("건성")
                 print("각질과 홍반이 경증이어서 건성으로 판단한 경우")
 
             elif pizy_state == class_names[1] and (hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다."):
@@ -758,7 +758,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["지성"] = data
-                st.session_state.scalp[0]["result_type"].append("지성")
+                result_type.append("지성")
                 print("피지와 홍반이 경증이어서 지성으로 판단한 경우")
 
             else:
@@ -776,7 +776,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["건성"] = data
-                    st.session_state.scalp[0]["result_type"].append("건성")
+                    result_type.append("건성")
                     print("각질이 경증이어서 건성으로 판단 한 경우")
 
                 elif pizy_state == class_names[1]:
@@ -793,7 +793,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["지성"] = data
-                    st.session_state.scalp[0]["result_type"].append("지성")
+                    result_type.append("지성")
                     print("피지가 경증이어서 지성으로 판단한 경우")
 
                 elif hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
@@ -810,7 +810,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["건성"] = data
-                    st.session_state.scalp[0]["result_type"].append("건성")
+                    result_type.append("건성")
                     print("홍반이 경증이고 두피타입이 건성이어서 건성으로 판단 한 경우")
 
                 elif hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
@@ -827,7 +827,7 @@ def product_recommend(df):
                                          df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                     break
                     recommend_type_product["지성"] = data
-                    st.session_state.scalp[0]["result_type"].append("지성")
+                    result_type.append("지성")
                     print("홍반이 경증이고 두피타입이 지성이어서 지성으로 판단한 경우")
 
             if nongpo_state == class_names[1]:
@@ -844,7 +844,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["지루성"] = data
-                st.session_state.scalp[0]["result_type"].append("지루성")
+                result_type.append("지루성")
                 print("농포가 경증이어서 지루성으로 판단한 경우")
 
             if bidum_state == class_names[1]:
@@ -861,7 +861,7 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["비듬성"] = data
-                st.session_state.scalp[0]["result_type"].append("비듬성")
+                result_type.append("비듬성")
                 print("비듬이 경증이어서 비듬성으로 판단한 경우")
 
             if talmo_state == class_names[1]:
@@ -878,8 +878,10 @@ def product_recommend(df):
                                      df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
                                 break
                 recommend_type_product["탈모성"] = data
-                st.session_state.scalp[0]["result_type"].append("탈모성")
+                result_type.append("탈모성")
                 print("탈모가 경증이어서 탈모성으로 판단한 경우")
+
+    st.session_state.scalp[0]["result_type"] = result_type
 
     return recommend_type_product
 
@@ -1002,8 +1004,7 @@ def product_view(result):
 def product_description(result):
 
     df = pd.read_csv("./data/crowlings/major_ingredient_per_type.csv", encoding="EUC-KR")
-    type_list = str(st.session_state.scalp[0]["result_type"]).split(",")
-    print(type_list)
+    type_list = st.session_state.scalp[0]["result_type"]
 
     with st.expander(label=f"제품 설명서", expanded=True):
         for i in range(len(result)):
@@ -1014,7 +1015,7 @@ def product_description(result):
                 row = type_line.split(",")
                 for j in range(len(row)):
                     ingredient = row[j]
-                    for k in range(len(type_list)):
+                    for k in type_list:
                         for l in range(len(df)):
                             major_ingredient = str(df.iloc[l][k])
                             str_len = len(ingredient)
