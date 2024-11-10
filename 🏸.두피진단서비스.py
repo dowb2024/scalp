@@ -1249,8 +1249,8 @@ if st.session_state.page == 0:
 elif st.session_state.page == 1:
     ############################ 3. 사용자 정보 입력하기 ############################
     st.markdown("**🔥 설문조사**")
-    st.text("* 당신의 두피에 대해 알려주세요. 더 정확한 분석에 도움이 됩니다.")
-    st.text("* 질문 선택 후 Submit 버튼을 반드시 눌러주세요.")
+    st.markdown("* 당신의 두피에 대해 알려주세요. 더 정확한 분석에 도움이 됩니다.")
+    st.markdown("* 질문 선택 후 Submit 버튼을 반드시 눌러주세요.")
     # auto_complete = st.toggle("예시 데이터로 채우기")
     with (st.form(key="form")):
 
