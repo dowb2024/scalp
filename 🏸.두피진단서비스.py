@@ -1310,10 +1310,10 @@ elif st.session_state.page == 1:
 
                 if "".join(type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
                     st.markdown(f"* 당신은 당신의 두피가 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 보는 군요!")
-                    st.markdown(f"* 당신이 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}**(을)를 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
+                    st.markdown(f"* 당신이 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
                 elif "".join(type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
                     st.markdown(f"* 당신은 당신의 두피가 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 보는 군요!")
-                    st.markdown(f"* 당신이 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}**(을)를 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
+                    st.markdown(f"* 당신이 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
 
                 st.markdown("* Next 버튼을 눌러주세요!")
 
