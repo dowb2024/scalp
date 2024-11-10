@@ -1338,10 +1338,10 @@ elif st.session_state.page == 3:
 
     st.markdown(f"* 당신의 두피 상태는 **{",".join(tmp)}** 입니다.")
 
-    # with st.spinner('두피 타입의 원인과 특징 그리고 관리방안을 보여 주고 있습니다...'):
-    #     prompt = generate_prompt(','.join(scalp_type))
-    #     response = request_chat_completion(prompt)
-    # print_streaming_response(response)
+    with st.spinner('두피 타입의 원인과 특징 그리고 관리방안을 보여 주고 있습니다...'):
+        prompt = generate_prompt(','.join(scalp_type))
+        response = request_chat_completion(prompt)
+    print_streaming_response(response)
 
     col1, col2, col3, col4, col5, col6 = st.columns(6)
     with col1:
