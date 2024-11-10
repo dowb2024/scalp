@@ -1003,6 +1003,7 @@ def product_description(result):
 
     df = pd.read_csv("./data/crowlings/major_ingredient_per_type.csv", encoding="EUC-KR")
     type_list = str(st.session_state.scalp[0]["result_type"]).split(",")
+    print(type_list)
 
     with st.expander(label=f"제품 설명서", expanded=True):
         for i in range(len(result)):
