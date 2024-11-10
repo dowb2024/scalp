@@ -577,7 +577,7 @@ def product_recommend(df):
     else:
 
         if talmo_state == class_names[2] or nongpo_state == class_names[2] or hongban_state == class_names[2] or pizy_state == class_names[2] or gakzil_state == class_names[2] or bidum_state == class_names[2]:
-            if gakzil_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+            if gakzil_state == class_names[2] and (hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다."):
                 data = []
                 for i in range(len(df)):
                     type_line = str(df.iloc[i]["type"])
@@ -591,9 +591,9 @@ def product_recommend(df):
                                 break
                 recommend_type_product["건성"] = data
                 st.session_state.scalp[0]["result_type"].append("건성")
-                print("각질이 중증이어서 건성으로 판단 한 경우")
+                print("각질과 홍반이 중증이어서 건성으로 판단 한 경우")
 
-            if (pizy_state == class_names[2] or hongban_state == class_names[2]) and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+            elif pizy_state == class_names[2] and (hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다."):
                 data = []
                 for i in range(len(df)):
                     type_line = str(df.iloc[i]["type"])
@@ -608,6 +608,75 @@ def product_recommend(df):
                 recommend_type_product["지성"] = data
                 st.session_state.scalp[0]["result_type"].append("지성")
                 print("피지와 홍반이 중증이어서 지성으로 판단한 경우")
+            else:
+                if gakzil_state == class_names[2]:
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "건성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["건성"] = data
+                    st.session_state.scalp[0]["result_type"].append("건성")
+                    print("각질이 중증이어서 건성으로 판단 한 경우")
+
+                elif pizy_state == class_names[2]:
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "지성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["지성"] = data
+                    st.session_state.scalp[0]["result_type"].append("지성")
+                    print("피지가 중증이어서 지성으로 판단한 경우")
+                    
+                elif hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "건성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["건성"] = data
+                    st.session_state.scalp[0]["result_type"].append("건성")
+                    print("홍반이 중증이고 두피타입이 건성이어서 건성으로 판단 한 경우")
+
+                elif hongban_state == class_names[2] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "지성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["지성"] = data
+                    st.session_state.scalp[0]["result_type"].append("지성")
+                    print("홍반이 중증이고 두피타입이 지성이어서 지성으로 판단한 경우")
+
 
             if nongpo_state == class_names[2]:
                 data = []
@@ -658,7 +727,7 @@ def product_recommend(df):
                 print("탈모가 중증이어서 탈모성으로 판단한 경우")
 
         elif talmo_state == class_names[1] or nongpo_state == class_names[1] or hongban_state == class_names[1] or pizy_state == class_names[1] or gakzil_state == class_names[1] or bidum_state == class_names[1]:
-            if gakzil_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+            if gakzil_state == class_names[1] and (hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다."):
                 data = []
                 for i in range(len(df)):
                     type_line = str(df.iloc[i]["type"])
@@ -673,9 +742,9 @@ def product_recommend(df):
                                 break
                 recommend_type_product["건성"] = data
                 st.session_state.scalp[0]["result_type"].append("건성")
-                print("각질이 경증이어서 건성으로 판단한 경우")
+                print("각질과 홍반이 경증이어서 건성으로 판단한 경우")
 
-            if (pizy_state == class_names[1] or hongban_state == class_names[1]) and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+            elif pizy_state == class_names[1] and (hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다."):
                 data = []
                 for i in range(len(df)):
                     type_line = str(df.iloc[i]["type"])
@@ -690,7 +759,76 @@ def product_recommend(df):
                                 break
                 recommend_type_product["지성"] = data
                 st.session_state.scalp[0]["result_type"].append("지성")
-                print("피지 또는 홍반이 경증이어서 지성으로 판단한 경우")
+                print("피지와 홍반이 경증이어서 지성으로 판단한 경우")
+
+            else:
+                if gakzil_state == class_names[1]:
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "건성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["건성"] = data
+                    st.session_state.scalp[0]["result_type"].append("건성")
+                    print("각질이 경증이어서 건성으로 판단 한 경우")
+
+                elif pizy_state == class_names[1]:
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "지성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["지성"] = data
+                    st.session_state.scalp[0]["result_type"].append("지성")
+                    print("피지가 경증이어서 지성으로 판단한 경우")
+
+                elif hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "건성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["건성"] = data
+                    st.session_state.scalp[0]["result_type"].append("건성")
+                    print("홍반이 경증이고 두피타입이 건성이어서 건성으로 판단 한 경우")
+
+                elif hongban_state == class_names[1] and "".join(st.session_state.scalp[0]["type"]) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+                    data = []
+                    for i in range(len(df)):
+                        type_line = str(df.iloc[i]["type"])
+                        if type_line:
+                            row = type_line.split(",")
+                            for j in range(len(row)):
+                                if row[j] == "지성":
+                                    data.append(
+                                        [df.iloc[i]["product_link"], df.iloc[i]["img_link"], df.iloc[i]["brand_name"],
+                                         df.iloc[i]["product_name"],
+                                         df.iloc[i]["star"], df.iloc[i]["review_count"], df.iloc[i]["ingredient"]])
+                                    break
+                    recommend_type_product["지성"] = data
+                    st.session_state.scalp[0]["result_type"].append("지성")
+                    print("홍반이 경증이고 두피타입이 지성이어서 지성으로 판단한 경우")
 
             if nongpo_state == class_names[1]:
                 data = []
@@ -1162,14 +1300,22 @@ elif st.session_state.page == 1:
                 }]
                 st.session_state.survey = 1
 
-                print(type)
-                if "".join(type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
-                    st.markdown("* 당신은 <b>⚜️ [건성 타입]</b>의 두피를 가지셨군요.", unsafe_allow_html=True)
-                elif "".join(type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
-                    st.markdown("* 당신은 <b>⚜️ [지성 타입]</b>의 두피를 가지셨군요.", unsafe_allow_html=True)
+                # if "".join(type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+                #     st.markdown("* 당신은 <b>⚜️ [건성 타입]</b>의 두피를 가지셨군요.", unsafe_allow_html=True)
+                # elif "".join(type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+                #     st.markdown("* 당신은 <b>⚜️ [지성 타입]</b>의 두피를 가지셨군요.", unsafe_allow_html=True)
+                #
+                # st.markdown(f"* 그리고 당신은 <b>🤦‍♀️️ {','.join(symptom)}</b>를 고민하시는 군요!", unsafe_allow_html=True)
+                # st.markdown(f"* 당신을 위해 <b>🧴 {','.join(variety)}</b>를 추천해 드리겠습니다.", unsafe_allow_html=True)
 
-                st.markdown(f"* 그리고 당신은 <b>🤦‍♀️️ {','.join(symptom)}</b>를 고민하시는 군요!", unsafe_allow_html=True)
-                st.markdown(f"* 당신을 위해 <b>🧴 {','.join(variety)}</b>를 추천해 드리겠습니다.", unsafe_allow_html=True)
+                if "".join(type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+                    st.markdown(f"* 당신은 당신의 두피가 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 보는 군요!")
+                    st.markdown(f"* 당신이 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}**(을)를 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
+                elif "".join(type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+                    st.markdown(f"* 당신은 당신의 두피가 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 보는 군요!")
+                    st.markdown(f"* 당신이 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}**(을)를 가지고 있는 지 다음 페이지에서는 확인 할 수 있습니다.", unsafe_allow_html=True)
+
+                st.markdown("* Next 버튼을 눌러주세요!")
 
     # st.button("Home", on_click=home_page, key="button2")
     col14, col15, col16, col17, col18, col19 = st.columns(6)
@@ -1264,6 +1410,140 @@ elif st.session_state.page == 2:
                 st.markdown(f"<p style='font-size:15px;'><b>6. 피지과다 : {st.session_state.scalp[0]["pizy_state"]}<b></p>", unsafe_allow_html=True)
                 # st.markdown(f"[**양호**({round(pred_class[4][1]*100)}%), **경증**({round(pred_class[4][2]*100)}%), **중증**({round(pred_class[4][3]*100)}%)]")
 
+        with st.expander(label="상태분석 노트", expanded=True):
+
+            # 입력값 내부 변수에 저장
+            bidum_state = st.session_state.scalp[0]["bidum_state"]
+            gakzil_state = st.session_state.scalp[0]["gakzil_state"]
+            hongban_state = st.session_state.scalp[0]["hongban_state"]
+            nongpo_state = st.session_state.scalp[0]["nongpo_state"]
+            pizy_state = st.session_state.scalp[0]["pizy_state"]
+            talmo_state = st.session_state.scalp[0]["talmo_state"]
+
+            class_names = ["👻 양호", "💧 경증", "😈 중증"]  # 클래스
+
+            tmp = []
+            tmp2 = []
+            if bidum_state == class_names[2] or gakzil_state == class_names[2] or hongban_state == class_names[2] or nongpo_state == class_names[2] or pizy_state == class_names[2] or talmo_state == class_names[2]:
+                if bidum_state == class_names[2]:
+                    tmp.append("비듬")
+                    tmp2.append(f"비듬 : {bidum_state}")
+                if gakzil_state == class_names[2]:
+                    tmp.append("미세각질")
+                    tmp2.append(f"미세각질 : {gakzil_state}")
+                if hongban_state == class_names[2]:
+                    tmp.append("모낭사이홍반")
+                    tmp2.append(f"모낭사이홍반 : {hongban_state}")
+                if nongpo_state == class_names[2]:
+                    tmp.append("모낭홍반농포")
+                    tmp2.append(f"모낭홍반농포 : {nongpo_state}")
+                if pizy_state == class_names[2]:
+                    tmp.append("피지과다")
+                    tmp2.append(f"피지과다 : {pizy_state}")
+                if talmo_state == class_names[2]:
+                    tmp.append("탈모")
+                    tmp2.append(f"탈모 : {talmo_state}")
+            elif bidum_state == class_names[1] or gakzil_state == class_names[1] or hongban_state == class_names[1] or nongpo_state == class_names[1] or pizy_state == class_names[1] or talmo_state == class_names[1]:
+                if bidum_state == class_names[1]:
+                    tmp.append("비듬")
+                    tmp2.append(f"비듬 : {bidum_state}")
+                if gakzil_state == class_names[1]:
+                    tmp.append("미세각질")
+                    tmp2.append(f"미세각질 : {gakzil_state}")
+                if hongban_state == class_names[1]:
+                    tmp.append("모낭사이홍반")
+                    tmp2.append(f"모낭사이홍반 : {hongban_state}")
+                if nongpo_state == class_names[1]:
+                    tmp.append("모낭홍반농포")
+                    tmp2.append(f"모낭홍반농포 : {nongpo_state}")
+                if pizy_state == class_names[1]:
+                    tmp.append("피지과다")
+                    tmp2.append(f"피지과다 : {pizy_state}")
+                if talmo_state == class_names[1]:
+                    tmp.append("탈모")
+                    tmp2.append(f"탈모 : {talmo_state}")
+
+            # st.markdown(f"* 당신의 두피 상태는 **{",".join(tmp2)}** 입니다.")
+
+            df = load_data(variety="shampoo")
+            result = product_recommend(df)
+            result_type = st.session_state.scalp[0]["result_type"]
+            # st.markdown(f"* 그 결과 당신은 <b>⚜️{",".join(result_type)}</b> 증상으로 분석되었어요.", unsafe_allow_html=True)
+
+            survey_type = st.session_state.scalp[0]["type"]
+            survey_symptom = st.session_state.scalp[0]["symptom"]
+            survey_variety = st.session_state.scalp[0]["variety"]
+
+
+            if "".join(survey_type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
+                for t in result_type:
+                    if t == "지성":
+                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨고 두피이미지 결과에 따라 **{",".join(tmp2)}**를 가진 **⚜️ 지성타입**으로 판단됩니다.")
+                    elif t == "건성":
+                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨지만 두피이미지 결과에 따라 **{",".join(tmp2)}**를 가진 **⚜️ 건성타입*으로 판단됩니다.")
+            elif "".join(survey_type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
+                for t in result_type:
+                    if t == "건성":
+                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨고 두피이미지 결과에 따라 **{",".join(tmp2)}**를 가진 **⚜️ 건성타입**으로 판단됩니다.")
+                    elif t == "지성":
+                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨지만 두피이미지 결과에 따라 **{",".join(tmp2)}**를 가진 **⚜️ 지성타입**으로 판단됩니다.")
+            else:
+                st.markdown(str(survey_type))
+
+            for s in survey_symptom:
+                if s == "비듬":
+                    for i, t in enumerate(tmp):
+                        if t == "비듬":
+                            st.markdown(f"* **비듬**을 고민하셨죠. 고민하셨던 데로 **비듬 {bidum_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp)-1:
+                        #         st.markdown(f"* **비듬**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **비듬**은 아니세요.")
+                if s == "미세각질":
+                    for i, t in enumerate(tmp):
+                        if t == "미세각질":
+                            st.markdown(f"* **미세각질**을 고민하셨죠. 고민하셨던 데로 **미세각질 {gakzil_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp) - 1:
+                        #         st.markdown(f"* **미세각질**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **미세각질**은 아니세요.")
+                if s == "모낭사이홍반":
+                    for i, t in enumerate(tmp):
+                        if t == "모낭사이홍반":
+                            st.markdown(f"* **모낭사이홍반**을 고민하셨죠. 고민하셨던 데로 **모낭사이홍반 {hongban_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp)-1:
+                        #         st.markdown(f"* **모낭사이홍반**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭사이홍반**는 아니세요.")
+                if s == "모낭홍반농포":
+                    for i, t in enumerate(tmp):
+                        if t == "모낭홍반농포":
+                            st.markdown(f"* **모낭홍반농포**을 고민하셨죠. 고민하셨던 데로 **모낭홍반농포 {nongpo_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp) - 1:
+                        #         st.markdown(f"* **모낭홍반농포**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭홍반농포**는 아니세요.")
+                if s == "피지과다":
+                    for i, t in enumerate(tmp):
+                        if t == "피지과다":
+                            st.markdown(f"* **피지과다**를 고민하셨죠. 고민하셨던 데로 **피지과다 {pizy_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp) - 1:
+                        #         st.markdown(f"* **피지과다**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **피지과다**는 아니세요.")
+                if s == "탈모":
+                    for i, t in enumerate(tmp):
+                        if t == "탈모":
+                            st.markdown(f"* **탈모**를 고민하셨죠. 고민하셨던 데로 탈모 **{pizy_state}**이 나왔습니다.")
+                            break
+                        # else:
+                        #     if i == len(tmp)-1:
+                        #         st.markdown(f"* **탈모**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **탈모**는 아니세요.")
+
+            st.markdown(f"* 다른 증상에 대해서는 고민하지 마세요. 두피 이미지 결과에 따라 당신은 **{",".join(tmp2)}**입니다.")
+            st.markdown(f"* 다음 페이지에서 **{",".join(tmp2)}**의 **원인과 특징과 관리방안**에 대해서 알아보겠습니다.")
+            st.markdown(f"* 그 다음 페이지에서 **⚜️ {",".join(result_type)}** 타입에 맞는 **🧴 {"".join(survey_variety)}**들을 추천해 드리겠습니다.")
+            st.markdown("* Next 버튼을 눌러주세요!")
 
         col5, col6, col7, col8, col9, col10 = st.columns(6)
         with col5:
@@ -1336,12 +1616,14 @@ elif st.session_state.page == 3:
             tmp.append(f"탈모 : {talmo_state}")
             scalp_type.append("탈모")
 
-    st.markdown(f"* 당신의 두피 상태는 **{",".join(tmp)}** 입니다.")
+    st.markdown(f"* 당신의 두피 상태인 **{",".join(tmp)}**의 원인과 특징 그리고 관리방안을 확인하도록 하겠습니다.")
 
     with st.spinner('두피 타입의 원인과 특징 그리고 관리방안을 보여 주고 있습니다...'):
         prompt = generate_prompt(','.join(scalp_type))
         response = request_chat_completion(prompt)
     print_streaming_response(response)
+
+    st.markdown("* Next 버튼을 눌러주세요!")
 
     col1, col2, col3, col4, col5, col6 = st.columns(6)
     with col1:
@@ -1403,12 +1685,12 @@ elif st.session_state.page == 4:
         if talmo_state == class_names[1]:
             tmp.append(f"탈모 : {talmo_state}")
 
-    st.markdown(f"* 당신의 두피 상태는 **{",".join(tmp)}** 입니다.")
+    st.markdown(f"* 당신의 두피 상태는 **{",".join(tmp)}** 이고,")
 
     df = load_data(variety="shampoo")
     result = product_recommend(df)
     result_type = st.session_state.scalp[0]["result_type"]
-    st.markdown(f"* 그 결과 당신은 <b>⚜️{",".join(result_type)}</b> 증상으로 분석되었어요.", unsafe_allow_html=True)
+    st.markdown(f"* 그 결과 당신은 <b>⚜️{",".join(result_type)}</b> 타입으로 분석되었습니다.", unsafe_allow_html=True)
 
     for v in variety:
 
