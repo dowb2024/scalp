@@ -1309,11 +1309,11 @@ elif st.session_state.page == 1:
                 # st.markdown(f"* 당신을 위해 <b>🧴 {','.join(variety)}</b>를 추천해 드리겠습니다.", unsafe_allow_html=True)
 
                 if "".join(type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
-                    st.markdown(f"* 당신은 당신의 두피가 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 선택하셨습니다.")
-                    st.markdown(f"* 다음 페이지에서 당신이 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 두피이미지 분석을 통해 확인해 보도록 하겠습니다.", unsafe_allow_html=True)
+                    st.markdown(f"* 당신의 두피가 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 선택하셨습니다.")
+                    st.markdown(f"* 다음 페이지에서 당신이 **⚜️ 건성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 **🤠 두피이미지 분석**을 통해 확인해 보도록 하겠습니다.", unsafe_allow_html=True)
                 elif "".join(type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
-                    st.markdown(f"* 당신은 당신의 두피가 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 선택하셨습니다.")
-                    st.markdown(f"* 다음 페이지에서 당신이 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 두피이미지 분석을 통해 확인해 보도록 하겠습니다.", unsafe_allow_html=True)
+                    st.markdown(f"* 당신의 두피가 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상이 있다라고 선택하셨습니다.")
+                    st.markdown(f"* 다음 페이지에서 당신이 **⚜️ 지성 타입**의 **🤦️️ {','.join(symptom)}** 증상을 가지고 있는 지 **🤠 두피이미지 분석**을 통해 확인해 보도록 하겠습니다.", unsafe_allow_html=True)
 
                 st.markdown("* Next 버튼을 눌러주세요!")
 
@@ -1478,69 +1478,69 @@ elif st.session_state.page == 2:
             if "".join(survey_type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
                 for t in result_type:
                     if t == "지성":
-                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **{",".join(tmp2)}**를 가진 **⚜️ 지성타입**으로 판단됩니다.")
+                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
                     elif t == "건성":
-                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **{",".join(tmp2)}**를 가진 **⚜️ 건성타입*으로 판단됩니다.")
+                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입*으로 판단됩니다.")
             elif "".join(survey_type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
                 for t in result_type:
                     if t == "건성":
-                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **{",".join(tmp2)}**를 가진 **⚜️ 건성타입**으로 판단됩니다.")
+                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
                     elif t == "지성":
-                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **{",".join(tmp2)}**를 가진 **⚜️ 지성타입**으로 판단됩니다.")
+                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
             else:
                 st.markdown(str(survey_type))
 
-            for s in survey_symptom:
-                if s == "비듬":
-                    for i, t in enumerate(tmp):
-                        if t == "비듬":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **비듬**이 나왔고 상태는 **{bidum_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp)-1:
-                        #         st.markdown(f"* **비듬**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **비듬**은 아니세요.")
-                if s == "미세각질":
-                    for i, t in enumerate(tmp):
-                        if t == "미세각질":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **미세각질**이 나왔고 상태는 **{gakzil_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp) - 1:
-                        #         st.markdown(f"* **미세각질**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **미세각질**은 아니세요.")
-                if s == "모낭사이홍반":
-                    for i, t in enumerate(tmp):
-                        if t == "모낭사이홍반":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **모낭사이홍반**이 나왔고 상태는 **{hongban_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp)-1:
-                        #         st.markdown(f"* **모낭사이홍반**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭사이홍반**는 아니세요.")
-                if s == "모낭홍반농포":
-                    for i, t in enumerate(tmp):
-                        if t == "모낭홍반농포":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **모낭홍반농포**가 나왔고 상태는 **{nongpo_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp) - 1:
-                        #         st.markdown(f"* **모낭홍반농포**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭홍반농포**는 아니세요.")
-                if s == "피지과다":
-                    for i, t in enumerate(tmp):
-                        if t == "피지과다":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **피지과다**가 나왔고 상태는 **{pizy_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp) - 1:
-                        #         st.markdown(f"* **피지과다**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **피지과다**는 아니세요.")
-                if s == "탈모":
-                    for i, t in enumerate(tmp):
-                        if t == "탈모":
-                            st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **탈모**가 나왔고 상태는 **{talmo_state}**이네요.")
-                            break
-                        # else:
-                        #     if i == len(tmp)-1:
-                        #         st.markdown(f"* **탈모**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **탈모**는 아니세요.")
+            # for s in survey_symptom:
+            #     if s == "비듬":
+            #         for i, t in enumerate(tmp):
+            #             if t == "비듬":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **비듬**이 나왔고 상태는 **{bidum_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp)-1:
+            #             #         st.markdown(f"* **비듬**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **비듬**은 아니세요.")
+            #     if s == "미세각질":
+            #         for i, t in enumerate(tmp):
+            #             if t == "미세각질":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **미세각질**이 나왔고 상태는 **{gakzil_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp) - 1:
+            #             #         st.markdown(f"* **미세각질**을 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **미세각질**은 아니세요.")
+            #     if s == "모낭사이홍반":
+            #         for i, t in enumerate(tmp):
+            #             if t == "모낭사이홍반":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **모낭사이홍반**이 나왔고 상태는 **{hongban_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp)-1:
+            #             #         st.markdown(f"* **모낭사이홍반**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭사이홍반**는 아니세요.")
+            #     if s == "모낭홍반농포":
+            #         for i, t in enumerate(tmp):
+            #             if t == "모낭홍반농포":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **모낭홍반농포**가 나왔고 상태는 **{nongpo_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp) - 1:
+            #             #         st.markdown(f"* **모낭홍반농포**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **모낭홍반농포**는 아니세요.")
+            #     if s == "피지과다":
+            #         for i, t in enumerate(tmp):
+            #             if t == "피지과다":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **피지과다**가 나왔고 상태는 **{pizy_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp) - 1:
+            #             #         st.markdown(f"* **피지과다**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **피지과다**는 아니세요.")
+            #     if s == "탈모":
+            #         for i, t in enumerate(tmp):
+            #             if t == "탈모":
+            #                 st.markdown(f"* 고민하신 것 처럼 두피 이미지 분석 결과 **탈모**가 나왔고 상태는 **{talmo_state}**입니다.")
+            #                 break
+            #             # else:
+            #             #     if i == len(tmp)-1:
+            #             #         st.markdown(f"* **탈모**를 고민하셨죠. 그만 고민하세요. 두피 이미지 결과에 따라 **탈모**는 아니세요.")
 
-            st.markdown(f"* 다른 증상에 대해서는 고민하지 마세요. 두피 이미지 분석 결과에 따라 당신은 **{",".join(tmp2)}**입니다.")
+            st.markdown(f"* 다른 증상에 대해서는 고민하지 마세요. 두피 이미지 분석 결과에 따라 당신은 **{",".join(tmp2)}**으로 판단됩니다.")
             st.markdown(f"* 다음 페이지에서 **🤠 {",".join(tmp)}**의 **원인과 특징과 관리방안**에 대해서 알아보겠습니다.")
             st.markdown(f"* 그 다음 페이지에서 **⚜️ {",".join(result_type)}** 타입에 맞는 **🧴 {"".join(survey_variety)}**들을 추천해 드리겠습니다.")
             st.markdown("* Next 버튼을 눌러주세요!")
