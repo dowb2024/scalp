@@ -1478,15 +1478,15 @@ elif st.session_state.page == 2:
             if "".join(survey_type) == "(지성)머리를 감은지 하루 이내에 두피가 기름집니다.":
                 for t in result_type:
                     if t == "지성":
-                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
+                        st.markdown(f"* 설문조사에서 당신은 **⚜️ 지성 타입**이라고 선택하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
                     elif t == "건성":
-                        st.markdown(f"* 당신은 **⚜️ 지성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입*으로 판단됩니다.")
+                        st.markdown(f"* 설문조사에서 당신은 **⚜️ 지성 타입**이라고 선택하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입*으로 판단됩니다.")
             elif "".join(survey_type) == "(건성)두피에 건조함이나 당김을 느낍니다.":
                 for t in result_type:
                     if t == "건성":
-                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
+                        st.markdown(f"* 설문조사에서 당신은 **⚜️ 건성 타입**이라고 선택하셨습니다. 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
                     elif t == "지성":
-                        st.markdown(f"* 당신은 **⚜️ 건성 타입**이라고 하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
+                        st.markdown(f"* 설문조사에서 당신은 **⚜️ 건성 타입**이라고 선택하셨습니다. 그러나 두피이미지 분석 결과 **⚜️ {",".join(result_type)}타입**으로 판단됩니다.")
             else:
                 st.markdown(str(survey_type))
 
